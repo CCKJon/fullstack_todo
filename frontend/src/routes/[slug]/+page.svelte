@@ -1,5 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
+	import Cock from '$lib/components/Cock.svelte';
+	import Trashcan from '$lib/icons/Trashcan.svelte';
 	import { onMount } from 'svelte';
 	export let data;
 	let answer;
@@ -86,16 +88,42 @@
 	</form>
 </div>
 
-<div class="border-rose-lighter border-4 mx-auto w-96 h-44 text-center mb-9 rounded-lg">
-	<div class="grid place-items-center mt-7 mb-5 font-extrabold text-xl">
-		Are you sure you want to delete this To-Do?
-	</div>
-	<button
-		class="mb-16 text-center grid place-items-center w-44 mx-auto rounded-md text-rose-default border-rose-default border-2 hover:bg-slate-600 font-bold"
-		on:click={deleteTodo}>Delete To-Do</button
+<div class="mx-auto w-96 h-44 text-center">
+	<div class="grid place-items-center mb-2 font-extrabold text-sm text-white" />
+	<button class="mb-16 text-center grid place-items-center mx-auto text-white" on:click={deleteTodo}
+		><svg
+			viewBox="0 0 24 24"
+			height="48"
+			width="48"
+			focusable="false"
+			role="img"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="stroke-red-800"
+			><title>Trash icon</title><polyline points="3 6 5 6 21 6" /><path
+				d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+			/></svg
+		></button
 	>
 </div>
-<a
-	class="grid place-items-center text-center, w-20 mx-auto rounded-md text-rose-default border-rose-default border-2 hover:bg-slate-600 border-b-4"
-	href="/">Home</a
+<a class="grid place-items-center text-center, w-20 mx-auto text-white hover:bg-slate-600" href="/"
+	><svg
+		viewBox="0 0 24 24"
+		height="48"
+		width="48"
+		focusable="false"
+		role="img"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		stroke="currentColor"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		class="stroke-indigo-800"
+		><title>Home icon</title><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline
+			points="9 22 9 12 15 12 15 22"
+		/></svg
+	></a
 >

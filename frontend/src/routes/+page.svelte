@@ -9,28 +9,88 @@
 </script>
 
 <!-- <header>NavBar</header> -->
-
-<h1 class="text-gray-900 grid place-items-center text-4xl font-extrabold p-3">User's To-Do List</h1>
-<div class="grid place-items-center text-rose-default font-bold text-2xl mb-6">
-	To-do lists are very cool, trust me
+<div class="flex flex-row justify-between text-white py-8">
+	<button class="ml-8 mt-[-5px]"
+		><svg
+			viewBox="0 0 24 24"
+			height="35"
+			width="35"
+			focusable="false"
+			role="img"
+			fill="currentColor"
+			xmlns="http://www.w3.org/2000/svg"
+			class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
+			><title>Navigation icon</title><path
+				d="M2.75 18h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.49h18.6-18.5z"
+			/></svg
+		></button
+	>
+	<div class="flex flex-row gap-4">
+		<button class="absolute right-16"
+			><svg
+				viewBox="0 0 16 16"
+				height="25"
+				width="25"
+				focusable="false"
+				role="img"
+				fill="currentColor"
+				xmlns="http://www.w3.org/2000/svg"
+				class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
+				><title>Search icon</title><path
+					d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+				/></svg
+			></button
+		>
+		<button class="absolute right-5"
+			><svg
+				viewBox="0 0 16 16"
+				height="25"
+				width="25"
+				focusable="false"
+				role="img"
+				fill="currentColor"
+				xmlns="http://www.w3.org/2000/svg"
+				class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
+				><title>Bell icon</title><path
+					d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
+				/></svg
+			></button
+		>
+	</div>
 </div>
-<div class="w-80 mx-auto border-4 rounded-md border-rose-darker">
+
+<h1 class="text-white text-3xl font-bold p-3 ml-6">What's up, Jonathan!</h1>
+<div class="ml-12 text-white text-xs mt-5">FEATURED TASKS</div>
+<div class="overflow-y-scroll text-white text-sm">Sidescrolling list of featured classes</div>
+<div class="text-white text-xs mb-2 ml-12 mt-48">LIST OF TASKS</div>
+<div class="mx-auto grid place-items-center overflow-y-scroll h-96">
 	{#each Todos as todo}
-		<div>
-			<a
-				class="grid place-items-center mt-3 text-gray-700 font-bold hover:bg-rose-default"
-				href={`/${todo.title}`}>{todo.title}</a
-			>
-			<p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p>
+		<div
+			class="border rounded-xl bg-indigo-800 w-80 mb-2 mt-1 py-3 px-3 border-indigo-800 shadow-inner"
+		>
+			<input type="checkbox" />
+			<a class=" mt-3 text-white" href={`/${todo.title}`}>{todo.title}</a>
+			<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
 		</div>
 	{/each}
 </div>
 <div>
 	<div>
-		<a
-			class="grid place-items-center text-xl text-rose-lighter font-bold mt-5 border-2 border-rose-default w-52 py-2 mx-auto rounded-md hover:bg-slate-700 border-b-4"
-			id="Im_an_id"
-			href="/new_todo">Create a new To-Do</a
+		<button
+			on:click={() => {
+				window.location = '/new_todo';
+			}}
+			><svg
+				viewBox="0 0 16 16"
+				focusable="false"
+				role="img"
+				fill="currentColor"
+				xmlns="http://www.w3.org/2000/svg"
+				class="fill-pink-400 absolute right-10 bottom-15 h-12 w-12"
+				><title>PlusCircleFill icon</title><path
+					d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+				/></svg
+			></button
 		>
 	</div>
 </div>

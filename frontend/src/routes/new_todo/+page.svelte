@@ -54,8 +54,9 @@
 	Title:
 	<input
 		class="bg-gray-300 border-4 border-rose-lighter rounded-lg text-rose-darker"
-		type="text"
 		bind:value={title}
+		type="text"
+		required
 	/>
 
 	Description:
@@ -92,25 +93,14 @@
 <!-- Modal -->
 
 <Modal bind:showModal>
-	<h2 slot="header">
-		modal
-		<small><em>adjective</em> mod·al \ˈmō-dəl\</small>
+	<h2 class="font-bold text-3xl text-center grid place-items-center mx-auto" slot="header">
+		New to-do has successfully been created!
 	</h2>
 
-	<ol class="definition-list">
-		<li>of or relating to modality in logic</li>
-		<li>
-			containing provisions as to the mode of procedure or the manner of taking effect —used of a
-			contract or legacy
+	<ol class="definition-list text-lg font-bold text-gray-800">
+		<li class="mb-2 mt-2">
+			Your new to-do has been created! You will now be redirected back to the home page.
 		</li>
-		<li>of or relating to a musical mode</li>
-		<li>of or relating to structure as opposed to substance</li>
-		<li>
-			of, relating to, or constituting a grammatical form or category characteristically indicating
-			predication
-		</li>
-		<li>of or relating to a statistical mode</li>
+		<li class="mb-5">Please click on the new to-do to edit or delete your new to-do.</li>
 	</ol>
-
-	<a href="https://www.merriam-webster.com/dictionary/modal">merriam-webster.com</a>
 </Modal>
