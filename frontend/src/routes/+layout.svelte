@@ -3,7 +3,7 @@
 </script>
 
 <div class="app min-h-screen bg-gray-900 rounded-xl">
-	<main>
+	<main class="h-screen">
 		<slot />
 	</main>
 </div>

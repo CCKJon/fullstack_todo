@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import Checkbox from '$lib/components/Checkbox.svelte';
 	export let data;
 	console.log('this is my data', data);
 	let Todos = data.items;
@@ -61,16 +62,18 @@
 
 <h1 class="text-white text-3xl font-bold p-3 ml-6">What's up, Jonathan!</h1>
 <div class="ml-12 text-white text-xs mt-5">FEATURED TASKS</div>
-<div class="overflow-y-scroll text-white text-sm">Sidescrolling list of featured classes</div>
+<div class="text-white text-sm">Sidescrolling list of featured classes</div>
 <div class="text-white text-xs mb-2 ml-12 mt-48">LIST OF TASKS</div>
-<div class="mx-auto grid place-items-center overflow-y-scroll h-96">
+<div class="mx-auto grid place-items-center overflow-y-scroll h-80 overflow-hidden">
 	{#each Todos as todo}
 		<div
 			class="border rounded-xl bg-indigo-800 w-80 mb-2 mt-1 py-3 px-3 border-indigo-800 shadow-inner"
 		>
-			<input type="checkbox" />
-			<a class=" mt-3 text-white" href={`/${todo.title}`}>{todo.title}</a>
-			<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
+			<div class="flex flex-row gap-3">
+				<Checkbox />
+				<a class="mt-1 text-white" href={`/${todo.title}`}>{todo.title}</a>
+				<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
+			</div>
 		</div>
 	{/each}
 </div>

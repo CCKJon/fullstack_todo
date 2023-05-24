@@ -55,75 +55,105 @@
 	});
 </script>
 
-<h1 class="text-rose-default grid place-items-center text-3xl font-bold p-3 mb-5">
-	This is your To-do
-</h1>
-<h1 class="grid place-items-center text-2xl font-extrabold">{title}</h1>
-
-<div class="mb-16">
+<div class="flex flex-row justify-between text-white py-8">
+	<button class="ml-8 mt-[-5px]"
+		><svg
+			viewBox="0 0 24 24"
+			height="35"
+			width="35"
+			focusable="false"
+			role="img"
+			fill="currentColor"
+			xmlns="http://www.w3.org/2000/svg"
+			class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
+			><title>Navigation icon</title><path
+				d="M2.75 18h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.49h18.6-18.5z"
+			/></svg
+		></button
+	>
+	<div class="flex flex-row gap-4">
+		<button class="absolute right-6"
+			><svg
+				viewBox="0 0 16 16"
+				height="25"
+				width="25"
+				focusable="false"
+				role="img"
+				fill="currentColor"
+				xmlns="http://www.w3.org/2000/svg"
+				class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
+				><title>Bell icon</title><path
+					d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
+				/></svg
+			></button
+		>
+	</div>
+</div>
+<h1 class="grid place-items-center text-2xl font-bold text-white mb-3 mt-24">{title}</h1>
+<hr class="w-60 grid place-items-center mx-auto mb-3" />
+<div class="mb-24">
 	{#if answer}
-		<div class="grid place-items-center text-center mx-auto text-rose-default">
+		<div class="grid place-items-center text-center mx-auto text-white">
 			{answer.description}
 		</div>
 	{/if}
 </div>
 
-<div
-	class="border-4 border-rose-default mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg"
->
-	<div class="grid place-items-center text-rose-default text-lg font-bold mt-3 mb-3">
-		This is where you can update your To-do
-	</div>
+<div class="mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg text-white">
 	<form
 		class="mb-3 grid place-items-center text-rose-default"
 		on:submit|preventDefault={updateTodo}
 	>
 		New description:
-		<input class="mb-1" type="text" bind:value={description} />
+		<input class="mb-1 rounded-xl text-black" type="text" bind:value={description} />
 
 		<button
-			class="mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-rose-default border-rose-default border-2 hover:bg-slate-600 font-bold"
+			class="mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-white border-indigo-800 border-2 hover:bg-slate-600 font-bold"
 			type="submit">Update To-do</button
 		>
 	</form>
 </div>
-
-<div class="mx-auto w-96 h-44 text-center">
-	<div class="grid place-items-center mb-2 font-extrabold text-sm text-white" />
-	<button class="mb-16 text-center grid place-items-center mx-auto text-white" on:click={deleteTodo}
-		><svg
-			viewBox="0 0 24 24"
-			height="48"
-			width="48"
-			focusable="false"
-			role="img"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			class="stroke-red-800"
-			><title>Trash icon</title><polyline points="3 6 5 6 21 6" /><path
-				d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-			/></svg
-		></button
-	>
+<div class="grid grid-cols-1 h-52 items-end">
+	<div class="flex flex-row justify-between px-6">
+		<div>
+			<button on:click={deleteTodo}
+				><svg
+					viewBox="0 0 24 24"
+					height="48"
+					width="48"
+					focusable="false"
+					role="img"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="stroke-red-800"
+					><title>Trash icon</title><polyline points="3 6 5 6 21 6" /><path
+						d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+					/></svg
+				></button
+			>
+		</div>
+		<div>
+			<a href="/"
+				><svg
+					viewBox="0 0 24 24"
+					height="48"
+					width="48"
+					focusable="false"
+					role="img"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="stroke-indigo-800"
+					><title>Home icon</title><path
+						d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+					/><polyline points="9 22 9 12 15 12 15 22" /></svg
+				>
+			</a>
+		</div>
+	</div>
 </div>
-<a class="grid place-items-center text-center, w-20 mx-auto text-white hover:bg-slate-600" href="/"
-	><svg
-		viewBox="0 0 24 24"
-		height="48"
-		width="48"
-		focusable="false"
-		role="img"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-		stroke="currentColor"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		class="stroke-indigo-800"
-		><title>Home icon</title><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline
-			points="9 22 9 12 15 12 15 22"
-		/></svg
-	></a
->
