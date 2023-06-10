@@ -93,7 +93,7 @@
 <hr class="w-60 grid place-items-center mx-auto mb-3" />
 <div class="mb-24">
 	{#if answer}
-		<div class="grid place-items-center text-center mx-auto text-white">
+		<div class="grid place-items-center text-center mx-auto text-cyan-400">
 			{answer.description}
 		</div>
 	{/if}
@@ -104,16 +104,20 @@
 		class="mb-3 grid place-items-center text-rose-default"
 		on:submit|preventDefault={updateTodo}
 	>
-		New description:
-		<input class="mb-1 rounded-xl text-black" type="text" bind:value={description} />
+		<div class="text- text-center text-md mb-2">New description:</div>
+		<input
+			class="mb-1 rounded-xl text-black border-4 border-pink-400"
+			type="text"
+			bind:value={description}
+		/>
 
 		<button
-			class="mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-white border-indigo-800 border-2 hover:bg-slate-600 font-bold"
+			class="py-1 px-1 mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-white border-indigo-800 border-2 hover:bg-slate-600 font-bold"
 			type="submit">Update To-do</button
 		>
 	</form>
 </div>
-<div class="grid grid-cols-1 h-52 items-end">
+<div class="grid grid-cols-1 h-48 items-end">
 	<div class="flex flex-row justify-between px-6">
 		<div>
 			<button on:click={deleteTodo}
