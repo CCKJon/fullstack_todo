@@ -25,7 +25,7 @@
 			description
 		};
 
-		fetch('http://127.0.0.1:8000/api/todo/', {
+		fetch('https://fullstack-todo-app-jinv.onrender.com/api/todo/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

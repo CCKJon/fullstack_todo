@@ -1,9 +1,12 @@
 from model import Todo
+from dotenv import load_dotenv
+load_dotenv()
+api_key = os.environ.get('CLUSTER_PASSWORD')
 
 # MongoDB driver
 import motor.motor_asyncio
 
-client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017/')
+client = motor.motor_asyncio.AsyncIOMotorClient(f'mongodb+srv://sungjoon:{api_key}@cluster0.iivmp9y.mongodb.net/')
 database = client.TodoList
 collection = database.todo
 

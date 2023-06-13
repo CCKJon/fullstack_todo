@@ -4,7 +4,7 @@
 // ];
 
 async function getTodos() {
-	const response = await fetch('http://127.0.0.1:8000/api/todo/');
+	const response = await fetch('https://fullstack-todo-app-jinv.onrender.com/api/todo/');
 	const data = await response.json();
 	return data;
 }

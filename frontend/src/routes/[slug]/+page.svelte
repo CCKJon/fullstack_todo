@@ -8,13 +8,13 @@
 	let title = data.title;
 	let description = '';
 	async function getTodo() {
-		const response = await fetch(`http://127.0.0.1:8000/api/todo/${title}`);
+		const response = await fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}`);
 		const data = await response.json();
 		return data;
 	}
 
 	async function deleteTodo() {
-		const response = await fetch(`http://127.0.0.1:8000/api/todo/${title}`, {
+		const response = await fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
@@ -29,7 +29,7 @@
 	}
 
 	function updateTodo() {
-		fetch(`http://127.0.0.1:8000/api/todo/${title}?desc=${description}`, {
+		fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}?desc=${description}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
