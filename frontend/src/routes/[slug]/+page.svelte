@@ -4,6 +4,9 @@
 	import Trashcan from '$lib/icons/Trashcan.svelte';
 	import { onMount } from 'svelte';
 	export let data;
+	/**
+	 * @type {{ description: any; }}
+	 */
 	let answer;
 	let title = data.title;
 	let description = '';
@@ -21,6 +24,7 @@
 			}
 		})
 			.then((response) => {
+				// @ts-ignore
 				window.location = '/';
 			})
 			.catch((error) => {
@@ -42,6 +46,7 @@
 			.then((response) => {
 				// Handle response
 
+				// @ts-ignore
 				window.location = '/';
 			})
 			.catch((error) => {
