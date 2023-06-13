@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.environ.get('CLUSTER_PASSWORD')
 
+
 # MongoDB driver
 import motor.motor_asyncio
 
