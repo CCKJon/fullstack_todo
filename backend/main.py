@@ -29,6 +29,11 @@ app.add_middleware(
 # def read_root():
 #     return {"Ping":"Pong"}
 
+@app.get("/")
+async def read_root():
+    response = {"hello": "world"}
+    return response
+
 @app.get("/api/todo/")
 async def get_todos():
     response = await fetch_all_todos()
