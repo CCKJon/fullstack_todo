@@ -15,8 +15,7 @@ from database import(
     remove_todo
 )
 
-origins = ["*"
-           ]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
