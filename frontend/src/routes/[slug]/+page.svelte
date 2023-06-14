@@ -18,13 +18,13 @@
 	let due_date;
 
 	async function getTodo() {
-		const response = await fetch(`https://todo-test-xpj7.onrender.com//api/todo/${id}`);
+		const response = await fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${id}`);
 		const data = await response.json();
 		return data;
 	}
 
 	async function deleteTodo() {
-		const response = await fetch(`https://todo-test-xpj7.onrender.com//api/todo/${id}`, {
+		const response = await fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
@@ -40,7 +40,7 @@
 	}
 
 	function updateTodo() {
-		fetch(`https://todo-test-xpj7.onrender.com/api/todo/${id}`, {
+		fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'

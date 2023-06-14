@@ -25,7 +25,7 @@
 			description
 		};
 
-		fetch('https://fullstack-todo-app-jinv.onrender.com/api/todo/', {
+		fetch('https://todo-test-api-jelz.onrender.com/api/todo/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

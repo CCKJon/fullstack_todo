@@ -4,7 +4,7 @@
 // ];
 
 async function getTodos() {
-	const response = await fetch('https://todo-test-xpj7.onrender.com//api/todo/');
+	const response = await fetch('https://todo-test-api-jelz.onrender.com/api/todo/');
 	const data = await response.json();
 	return data;
 }
