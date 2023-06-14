@@ -9,11 +9,11 @@ async function getTodos() {
 	return data;
 }
 
-const values = await getTodos();
+let todos = getTodos();
 
 export function load() {
 	return {
-		items: values
+		items: todos
 	};
 }
 

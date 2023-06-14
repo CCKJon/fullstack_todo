@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import Checkbox from '$lib/components/Checkbox.svelte';
+	import { goto } from '$app/navigation';
 	export let data;
 	console.log('this is my data', data);
 	let Todos = data.items;
@@ -81,7 +82,7 @@
 	<div>
 		<button
 			on:click={() => {
-				window.location = '/new_todo';
+				goto('/new_todo');
 			}}
 			><svg
 				viewBox="0 0 16 16"

@@ -8,9 +8,14 @@
 	 * @type {{ description: any; }}
 	 */
 	let answer;
+	let category = '';
 	let title = '';
 	let description = '';
 	let id = data.id;
+	/**
+	 * @type {string | number | Date}
+	 */
+	let due_date;
 
 	async function getTodo() {
 		const response = await fetch(`https://todo-test-xpj7.onrender.com//api/todo/${id}`);
@@ -48,10 +53,10 @@
 			})
 		})
 			.then((_res) => {
-				window.location = '/';
+				goto('/');
 			})
 			.catch((_err) => {
-				err = !err;
+				_err = !_err;
 			});
 	}
 

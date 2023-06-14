@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 
@@ -13,11 +13,11 @@
 
 		setTimeout(() => {
 			showModal = false; // Hide the modal after the delay
-			window.location = '/'; // Redirect to the desired location
+			goto('/'); // Redirect to the desired location
 		}, 3000); // Specify the delay in milliseconds (e.g., 3000ms = 3 seconds)
 	}
 
-	function handleSubmit(event) {
+	function handleSubmit(event: any) {
 		event.preventDefault();
 
 		const newTodo = {
@@ -32,13 +32,14 @@
 			},
 			body: JSON.stringify(newTodo)
 		})
-			// .then((response) => {
-			// 	// Handle response
-
-			// 	window.location = '/';
-			// })
-			.catch((error) => {
-				// Handle error
+			.then(() => {
+				(window as Window).location = '/';
+			})
+			.catch(() => {
+				return {
+					status: 301,
+					error: new Error('Could not create a new todo')
+				};
 			});
 	}
 </script>
