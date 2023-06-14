@@ -10,7 +10,7 @@ api_key = os.environ.get('CLUSTER_PASSWORD')
 # MongoDB driver
 import motor.motor_asyncio
 
-client = motor.motor_asyncio.AsyncIOMotorClient(f'mongodb+srv://sungjoon:2396352aA@cluster0.iivmp9y.mongodb.net/')
+client = motor.motor_asyncio.AsyncIOMotorClient(f'mongodb+srv://sungjoon:2396352aA@cluster0.iivmp9y.mongodb.net/test')
 database = client.TodoList
 collection = database.todo
 
