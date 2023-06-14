@@ -7,6 +7,9 @@
 	let title = '';
 	let description = '';
 	let todo = '';
+	let completion = false;
+	let create_date = '';
+	let due_date = '';
 
 	function showAndHideModal() {
 		showModal = true; // Show the modal
@@ -21,8 +24,12 @@
 		event.preventDefault();
 
 		const newTodo = {
+			category: category == 'All' ? (category = '') : category,
 			title,
-			description
+			description,
+			completion,
+			create_date,
+			due_date: due_date ? new Date(due_date).toISOString().split('T')[0].toString() : 'null'
 		};
 
 		fetch('https://todo-test-api-jelz.onrender.com/api/todo/', {
