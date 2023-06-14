@@ -10,6 +10,7 @@
 	let completion = false;
 	let create_date = '';
 	let due_date = '';
+	let category = '';
 
 	function showAndHideModal() {
 		showModal = true; // Show the modal
