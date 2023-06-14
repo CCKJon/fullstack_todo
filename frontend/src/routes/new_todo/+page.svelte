@@ -41,6 +41,7 @@
 			body: JSON.stringify(newTodo)
 		})
 			.then(() => {
+				console.log('this worked');
 				(window as Window).location = '/';
 			})
 			.catch(() => {
