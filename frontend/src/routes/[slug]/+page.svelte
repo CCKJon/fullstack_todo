@@ -8,16 +8,18 @@
 	 * @type {{ description: any; }}
 	 */
 	let answer;
-	let title = data.title;
+	let title = '';
 	let description = '';
+	let id = data.id;
+
 	async function getTodo() {
-		const response = await fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}`);
+		const response = await fetch(`https://todo-test-xpj7.onrender.com//api/todo/${id}`);
 		const data = await response.json();
 		return data;
 	}
 
 	async function deleteTodo() {
-		const response = await fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}`, {
+		const response = await fetch(`https://todo-test-xpj7.onrender.com//api/todo/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
@@ -33,24 +35,23 @@
 	}
 
 	function updateTodo() {
-		fetch(`https://fullstack-todo-app-jinv.onrender.com/api/todo/${title}?desc=${description}`, {
+		fetch(`https://todo-test-xpj7.onrender.com/api/todo/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				title: title,
-				desc: description
+				category,
+				title,
+				description,
+				due_date: due_date ? new Date(due_date).toISOString().split('T')[0].toString() : 'null'
 			})
 		})
-			.then((response) => {
-				// Handle response
-
-				// @ts-ignore
+			.then((_res) => {
 				window.location = '/';
 			})
-			.catch((error) => {
-				// Handle error
+			.catch((_err) => {
+				err = !err;
 			});
 	}
 
