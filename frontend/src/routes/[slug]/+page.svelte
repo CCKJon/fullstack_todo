@@ -61,6 +61,7 @@
 	}
 
 	onMount(async () => {
+		console.log(data.id);
 		answer = await getTodo();
 		console.log(answer, 'this is my answer');
 	});
@@ -100,21 +101,27 @@
 		>
 	</div>
 </div>
-<h1 class="grid place-items-center text-2xl font-bold text-white mb-3 mt-24">{title}</h1>
-<hr class="w-60 grid place-items-center mx-auto mb-3" />
-<div class="mb-24">
-	{#if answer}
+{#if answer}
+	<h1 class="grid place-items-center text-2xl font-bold text-white mb-3 mt-24">{answer.title}</h1>
+	<hr class="w-60 grid place-items-center mx-auto mb-3" />
+	<div class="mb-24">
 		<div class="grid place-items-center text-center mx-auto text-cyan-400">
 			{answer.description}
 		</div>
-	{/if}
-</div>
-
+	</div>
+{/if}
 <div class="mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg text-white">
 	<form
 		class="mb-3 grid place-items-center text-rose-default"
 		on:submit|preventDefault={updateTodo}
 	>
+		<div class="text- text-center text-md mb-2">New Title:</div>
+		<input
+			class="mb-1 rounded-xl text-black border-4 border-pink-400"
+			type="text"
+			bind:value={title}
+		/>
+
 		<div class="text- text-center text-md mb-2">New description:</div>
 		<input
 			class="mb-1 rounded-xl text-black border-4 border-pink-400"

@@ -72,7 +72,7 @@
 		>
 			<div class="flex flex-row gap-3">
 				<Checkbox />
-				<a class="mt-1 text-white" href={`/${todo.title}`}>{todo.title}</a>
+				<a class="mt-1 text-white" href={`/${todo._id}`}>{todo.title}</a>
 				<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
 			</div>
 		</div>

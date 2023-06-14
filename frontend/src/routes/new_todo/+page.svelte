@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
+	import { onMount } from 'svelte';
+
+	export let data;
 
 	// let showCreateTodoModal = false;
 	let showModal = false;
@@ -51,6 +54,9 @@
 				};
 			});
 	}
+	onMount(async () => {
+		console.log(data);
+	});
 </script>
 
 <div class="flex flex-row justify-between text-white py-8">
