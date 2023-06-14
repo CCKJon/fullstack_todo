@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
+from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
-
+from datetime import datetime
 
 #App object
 app = FastAPI()
 
-from model import Todo
+from model import Todo, UpdateTodoModel
 
 from database import(
     fetch_one_todo,
@@ -34,35 +35,38 @@ async def read_root():
     response = {"hello": "world"}
     return response
 
-@app.get("/api/todo/")
+@app.get("/api/todo")
 async def get_todos():
     response = await fetch_all_todos()
     return response
 
-@app.get("/api/todo/{title}", response_model=Todo)
-async def get_todo_by_id(title):
-    response = await fetch_one_todo(title)
+@app.get("/api/todo/{id}", response_description="Get a single todo", response_model=Todo)
+async def get_todo_by_id(id: str):
+    response = await fetch_one_todo(id)
     if response:
         return response
-    raise HTTPException(404, f"there is no TODO item with this title {title}")
+    raise HTTPException(404, f"ID {id} not found")
 
-@app.post("/api/todo/", response_model=Todo)
-async def post_todo(todo:Todo):
-    response = await create_todo(todo.dict())
+@app.post("/api/todo", response_description="Add a new todo", response_model=Todo)
+async def post_todo(todo: Todo = Body(...)):
+    todo = jsonable_encoder(todo)
+    response = await create_todo(todo)
     if response:
         return response
     raise HTTPException(400, "Something went wrong / Bad Request")
 
-@app.put("/api/todo/{title}", response_model=Todo)
-async def put_todo(title:str, desc:str):
-    response = await update_todo(title, desc)
+@app.put("/api/todo/{id}", response_description="Update a todo", response_model=Todo)
+async def put_todo(id: str, todo: UpdateTodoModel = Body(...)):
+    todo = {k: v for k, v in todo.dict().items() if v is not None}
+    if len(todo) >= 1:
+        response = await update_todo(id, todo)
     if response:
         return response
-    raise HTTPException(404, f"there is no TODO item with this title {title}")
+    raise HTTPException(404, f"There is no TODO item with this title {id}")
 
-@app.delete("/api/todo/{title}")
-async def delete_todo(title):
-    response = await remove_todo(title)
+@app.delete("/api/todo/{id}", response_description="Delete a todo")
+async def delete_todo(id: str):
+    response = await remove_todo(id)
     if response:
-        return "Successfully deleted todo item !"
-    raise HTTPException(404, f"there is no TODO item with this title {title}")
+        return "Successfully deleted todo item"
+    raise HTTPException(404, f"There is no TODO item with this id:{id}")
