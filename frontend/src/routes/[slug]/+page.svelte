@@ -109,33 +109,36 @@
 			{answer.description}
 		</div>
 	</div>
-{/if}
-<div class="mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg text-white">
-	<form
-		class="mb-3 grid place-items-center text-rose-default"
-		on:submit|preventDefault={updateTodo}
-	>
-		<div class="text- text-center text-md mb-2">New Title:</div>
-		<input
-			class="mb-1 rounded-xl text-black border-4 border-pink-400"
-			type="text"
-			bind:value={title}
-		/>
 
-		<div class="text- text-center text-md mb-2">New description:</div>
-		<input
-			class="mb-1 rounded-xl text-black border-4 border-pink-400"
-			type="text"
-			bind:value={description}
-		/>
-
-		<button
-			class="py-1 px-1 mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-white border-indigo-800 border-2 hover:bg-slate-600 font-bold"
-			type="submit">Update To-do</button
+	<div class="mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg text-white">
+		<form
+			class="mb-3 grid place-items-center text-rose-default"
+			on:submit|preventDefault={updateTodo}
 		>
-	</form>
-</div>
-<div class="grid grid-cols-1 h-48 items-end">
+			<div class="text- text-center text-md mb-2">New Title:</div>
+			<input
+				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300"
+				type="text"
+				placeholder={answer.title}
+				bind:value={title}
+			/>
+
+			<div class="text- text-center text-md mb-2">New description:</div>
+			<input
+				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300"
+				type="text"
+				placeholder={answer.description}
+				bind:value={description}
+			/>
+
+			<button
+				class="py-1 px-1 mt-3 mb-20 text-center grid place-items-center w-44 mx-auto rounded-md text-white border-indigo-800 border-2 hover:bg-slate-600 font-bold"
+				type="submit">Update To-do</button
+			>
+		</form>
+	</div>
+{/if}
+<div class="grid grid-cols-1 h-40 items-end">
 	<div class="flex flex-row justify-between px-6">
 		<div>
 			<button on:click={deleteTodo}
