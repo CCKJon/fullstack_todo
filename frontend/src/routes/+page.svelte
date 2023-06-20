@@ -4,15 +4,51 @@
 	import { goto } from '$app/navigation';
 	import { slide } from 'svelte/transition';
 	export let data;
+	import Fuse from 'fuse.js';
 	console.log('this is my data', data);
 	let Todos = data.items;
 	import doit from '$lib/images/doit.gif';
+	import profile from '$lib/images/profile.jpg';
+	import Modal from '$lib/components/Modal.svelte';
 	let showSidebar = false;
 	function displaySidebar() {
 		showSidebar = !showSidebar;
 	}
+
+	//start test
+	let showSearchbar = false;
+
+	let searchPattern;
+	let fuse;
+	let searchresults = [];
+	let searchableTodos = [];
+	const searchOptions = {
+		includeScore: true,
+		threshold: 0.5, // value 0 is very strict, value 1 is not strict, .6 is the default,
+		keys: ['title', 'description']
+	};
+	function search(Todos) {
+		fuse = new Fuse(Todos, searchOptions);
+	}
+
+	$: searchPattern && searchTodos();
+	const searchTodos = () => {
+		console.log(searchresults);
+		search(searchableTodos);
+		if (fuse) {
+			if (searchPattern) {
+				const searchResult = fuse.search(searchPattern);
+				const filteredTodos = searchResult.map((obj) => obj.item);
+				searchresults = filteredTodos;
+			} else {
+				searchresults = [];
+			}
+		}
+	};
+
 	onMount(() => {
 		Todos = Todos;
+		searchableTodos = Todos;
 	});
 </script>
 
@@ -35,10 +71,24 @@
 					/></svg
 				></button
 			>
-			<div class="text-white">Welcome to your profile, Jonathan!</div>
+
+			<div class="absolute right-0 p-8">
+				<img
+					class="rounded-full aspect-square w-[90px] border-2 border-white shadow-white/50 shadow-lg justify"
+					src={profile}
+					alt=""
+				/>
+			</div>
+			<div class=" flex-row right-0">
+				<div class="text-slate-300">Jonathan Hwang</div>
+				<div class="text-slate-300">airgearfreak@gmail.com</div>
+			</div>
+			<div class="text-slate-300 mx-auto place-items-center grid flex-col min-h-screen">
+				<div class="border-4 rounded-xl py-2 px-2 border-black bg-slate-700">Logout</div>
+			</div>
 		</div>
 	{/if}
-	<div class="flex flex-row justify-between text-white py-8">
+	<div class="flex flex-row justify-between text-white pt-8">
 		<button on:click={displaySidebar} class="ml-8 mt-[-5px]"
 			><svg
 				viewBox="0 0 24 24"
@@ -55,7 +105,11 @@
 			></button
 		>
 		<div class="flex flex-row gap-4 mr-8">
-			<button class=""
+			<button
+				on:click={() => {
+					showSearchbar = !showSearchbar;
+				}}
+				class=""
 				><svg
 					viewBox="0 0 16 16"
 					height="25"
@@ -70,6 +124,15 @@
 					/></svg
 				></button
 			>
+			{#if showSearchbar}
+				<input
+					class="text-black py-0"
+					type="text"
+					bind:value={searchPattern}
+					on:input={searchTodos}
+					name=""
+				/>
+			{/if}
 			<button class=""
 				><svg
 					viewBox="0 0 16 16"
@@ -87,6 +150,17 @@
 			>
 		</div>
 	</div>
+
+	{#if showSearchbar}
+		<dialog
+			class="rounded-xl text-indigo-800 w-80 h-40 overflow-hidden bg-green-400 border-4 border-purple-950 overflow-y-scroll"
+			open
+		>
+			{#each searchresults as result}
+				<div class="text-indigo-800 whitespace-nowrap mx-auto">{result.title}</div>
+			{/each}
+		</dialog>
+	{/if}
 
 	<h1 class="text-white text-3xl font-bold p-3 ml-6">What's up, Jonathan!</h1>
 	<div class="ml-12 text-white text-xs mt-5 mb-2">FEATURED MESSAGE</div>
