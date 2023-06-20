@@ -153,11 +153,15 @@
 
 	{#if showSearchbar}
 		<dialog
-			class="rounded-xl text-indigo-800 w-80 h-40 overflow-hidden bg-green-400 border-4 border-purple-950 overflow-y-scroll"
+			class="rounded-xl text-indigo-800 w-80 h-56 overflow-hidden bg-pink-300 border-4 border-purple-950 overflow-y-scroll mt-3"
 			open
 		>
 			{#each searchresults as result}
-				<div class="text-indigo-800 whitespace-nowrap mx-auto">{result.title}</div>
+				<div
+					class="border rounded-xl text-white bg-indigo-800 mb-2 py-3 px-3 border-indigo-800 shadow-inner whitespace-nowrap"
+				>
+					<a class="mt-1 text-white" href={`/${result._id}`}>{result.title}</a>
+				</div>
 			{/each}
 		</dialog>
 	{/if}
