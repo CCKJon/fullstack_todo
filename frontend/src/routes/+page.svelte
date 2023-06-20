@@ -153,7 +153,7 @@
 
 	{#if showSearchbar}
 		<dialog
-			class="rounded-xl text-indigo-800 w-80 h-56 overflow-hidden bg-pink-300 border-4 border-purple-950 overflow-y-scroll mt-3"
+			class="rounded-xl text-indigo-800 w-80 min-h-20 max-h-56 overflow-hidden bg-pink-300 border-4 border-purple-950 overflow-y-auto mt-3"
 			open
 		>
 			{#each searchresults as result}
@@ -176,7 +176,7 @@
 	<!-- <div class="text-white text-sm">Sidescrolling list of featured classes</div> -->
 	<div class="text-white text-xs mb-2 ml-12 mt-12">LIST OF TASKS</div>
 	<div
-		class="mx-auto grid grid-cols-1 content-start gap-1 place-items-center overflow-y-scroll h-80 overflow-hidden"
+		class="mx-auto grid grid-cols-1 content-start gap-1 place-items-center overflow-y-auto h-80 overflow-hidden"
 	>
 		{#each Todos as todo}
 			<div
