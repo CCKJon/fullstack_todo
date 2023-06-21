@@ -1,4 +1,6 @@
 <script>
+	// @ts-nocheck
+
 	import { goto } from '$app/navigation';
 	import Cock from '$lib/components/Cock.svelte';
 	import Trashcan from '$lib/icons/Trashcan.svelte';
@@ -12,10 +14,17 @@
 	let title = '';
 	let description = '';
 	let id = data.id;
+	let updatedTitle = '';
 	/**
 	 * @type {string | number | Date}
 	 */
 	let due_date;
+
+	// async function handleSubmit(event) {
+	// event.preventDefault();
+	// if (!updatedTitle.trim()) {
+	//   return;
+	// }
 
 	async function getTodo() {
 		const response = await fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${id}`);
@@ -64,6 +73,9 @@
 		console.log(data.id);
 		answer = await getTodo();
 		console.log(answer, 'this is my answer');
+		title = answer.title;
+		description = answer.description;
+		due_date = answer.due_date;
 	});
 </script>
 
@@ -111,24 +123,29 @@
 	</div>
 
 	<div class="mb-10 w-96 mx auto text-center mx-auto grid place-items-center rounded-lg text-white">
-		<form
-			class="mb-3 grid place-items-center text-rose-default"
-			on:submit|preventDefault={updateTodo}
-		>
+		<form class="mb-3 grid place-items-center text-rose-default" on:submit={updateTodo}>
 			<div class="text- text-center text-md mb-2">New Title:</div>
 			<input
-				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300"
+				required
+				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300 w-52"
 				type="text"
-				placeholder={answer.title}
+				placeholder={title}
 				bind:value={title}
 			/>
 
 			<div class="text- text-center text-md mb-2">New description:</div>
 			<input
-				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300"
+				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300 w-52"
 				type="text"
-				placeholder={answer.description}
+				placeholder={description}
 				bind:value={description}
+			/>
+			<div class="text- text-center text-md mb-2">New due date:</div>
+			<input
+				class="mb-1 rounded-xl text-black border-4 border-pink-400 placeholder:text-slate-300 w-52"
+				type="date"
+				placeholder={due_date}
+				bind:value={due_date}
 			/>
 
 			<button
@@ -138,7 +155,7 @@
 		</form>
 	</div>
 {/if}
-<div class="grid grid-cols-1 h-40 items-end">
+<div class="grid grid-cols-1 h-26 items-end">
 	<div class="flex flex-row justify-between px-6">
 		<div>
 			<button on:click={deleteTodo}

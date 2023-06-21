@@ -11,7 +11,6 @@
 	let description = '';
 	let todo = '';
 	let completion = false;
-	let create_date = '';
 	let due_date = '';
 	let category = '';
 
@@ -26,15 +25,20 @@
 
 	function handleSubmit(event: any) {
 		event.preventDefault();
-
+		const options = { timeZone: 'America/Chicago', dateStyle: 'short' };
+		const currentTime = new Date.toLocaleString('en-US', options)();
+		const create_date = currentTime.toLocaleString('en-US', options).split('T')[0];
 		const newTodo = {
 			category: category == 'All' ? (category = '') : category,
 			title,
 			description,
 			completion,
-			create_date,
-			due_date: due_date ? new Date(due_date).toISOString().split('T')[0].toString() : 'null'
+			create_date: create_date,
+			due_date: due_date
+				? new Date(due_date).toLocaleString('en-US', options).split('T')[0]
+				: 'null'
 		};
+		console.log(due_date);
 
 		fetch('https://todo-test-api-jelz.onrender.com/api/todo/', {
 			method: 'POST',
@@ -109,21 +113,28 @@
 >
 	<div class="text-lg font-bold text-center text-white mb-2 mt-2">Title:</div>
 	<input
-		class="bg-gray-300 border-4 border-purple-400 rounded-lg text-rose-darker"
+		class="bg-gray-300 border-4 border-purple-400 rounded-lg text-rose-darker w-52"
 		bind:value={title}
 		type="text"
 		required
 	/>
 
-	<div class="text-lg font-bold text-center text-white mb-2 mt-2">Description:</div>
+	<div class="text-lg font-bold text-center text-white mb-2 mt-2 w-48">Description:</div>
 	<input
-		class="border-4 bg-gray-300 border-pink-400 rounded-lg text-rose-darker"
+		class="border-4 bg-gray-300 border-pink-400 rounded-lg text-rose-darker w-52"
 		type="text"
 		bind:value={description}
 	/>
 
+	<div class="text-lg font-bold text-center text-white mb-2 mt-2">Due Date:</div>
+	<input
+		class="border-4 bg-gray-300 border-pink-400 rounded-lg text-rose-darker w-52"
+		type="date"
+		bind:value={due_date}
+	/>
+
 	<button
-		class="text-white text-lg border-indigo-800 border-4 mt-10 rounded-lg py-1 px-1 font-bold hover:bg-slate-700"
+		class="text-white text-lg border-indigo-800 border-4 mt-10 rounded-lg py-1 px-1 font-bold hover:bg-slate-700 mx-auto text-center"
 		on:click={() => {
 			showAndHideModal();
 		}}
@@ -131,7 +142,7 @@
 	>
 </form>
 
-<div class="mt-10 grid place-items-center mx-auto stroke-indigo-900 h-52">
+<div class="mt-10 grid place-items-center mx-auto stroke-indigo-900 h-28">
 	<a href="/"
 		><svg
 			viewBox="0 0 24 24"

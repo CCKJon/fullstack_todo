@@ -15,6 +15,14 @@
 		showSidebar = !showSidebar;
 	}
 
+	//alert creation
+	//To creat alert function, a list needs to be created with todo's who's completion date is upcoming (say, within 1 week). First, need to create
+	//parameters for todo's to have start and end dates. Then, create a list of todo completions within 1 week, and then display those on click
+	//of the alert button. Click on the list of todo's from that button should send you to the todo page to mark the todo as complete or update
+	//the end date.
+	//need to create a function to also "complete" a todo and update the database to mark it as such.
+	let showAlert = false;
+
 	//start test
 	let showSearchbar = false;
 
@@ -133,7 +141,11 @@
 					name=""
 				/>
 			{/if}
-			<button class=""
+			<button
+				on:click={() => {
+					showAlert = !showAlert;
+				}}
+				class=""
 				><svg
 					viewBox="0 0 16 16"
 					height="25"
@@ -153,6 +165,9 @@
 
 	{#if showSearchbar}
 		<dialog
+			on:mouseleave={() => {
+				showSearchbar = false;
+			}}
 			class="rounded-xl text-indigo-800 w-80 min-h-20 max-h-56 overflow-hidden bg-pink-300 border-4 border-purple-950 overflow-y-auto mt-3"
 			open
 		>
