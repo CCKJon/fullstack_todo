@@ -3,6 +3,7 @@
 	import Checkbox from '$lib/components/Checkbox.svelte';
 	import { goto } from '$app/navigation';
 	import { slide } from 'svelte/transition';
+	import CheckedCircle from '$lib/components/CheckedCircle.svelte';
 	export let data;
 	import Fuse from 'fuse.js';
 	console.log('this is my data', data);
@@ -53,6 +54,27 @@
 			}
 		}
 	};
+
+	//Completion function
+
+	function updateCompletion(todo) {
+		console.log(todo);
+		fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${todo._id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				completion: !todo.completion
+			})
+		})
+			.then((_res) => {
+				window.location = '/';
+			})
+			.catch((_err) => {
+				_err = !_err;
+			});
+	}
 
 	onMount(() => {
 		Todos = Todos;
@@ -198,8 +220,13 @@
 				class="border rounded-xl bg-indigo-800 w-80 mb-2 py-3 px-3 border-indigo-800 shadow-inner"
 			>
 				<div class="flex flex-row gap-3">
-					<Checkbox />
-					<a class="mt-1 text-white" href={`/${todo._id}`}>{todo.title}</a>
+					<button type="button" on:click={updateCompletion(todo)}>
+						<Checkbox {todo} />
+					</button>
+					<a class="mt-1 text-white {todo.completion ? 'line-through' : ''}" href={`/${todo._id}`}
+						>{todo.title}</a
+					>
+
 					<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
 				</div>
 			</div>
