@@ -26,7 +26,7 @@
 	function handleSubmit(event: any) {
 		event.preventDefault();
 		const options = { timeZone: 'America/Chicago', dateStyle: 'short' };
-		const currentTime = new Date.toLocaleString('en-US', options)();
+		const currentTime = new Date();
 		const create_date = currentTime.toLocaleString('en-US', options).split('T')[0];
 		const newTodo = {
 			category: category == 'All' ? (category = '') : category,
