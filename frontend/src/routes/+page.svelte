@@ -1,20 +1,35 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import Checkbox from '$lib/components/Checkbox.svelte';
 	import { goto } from '$app/navigation';
 	import { slide } from 'svelte/transition';
 	import CheckedCircle from '$lib/components/CheckedCircle.svelte';
-	export let data;
 	import Fuse from 'fuse.js';
-	console.log('this is my data', data);
-	let Todos = data.items;
 	import doit from '$lib/images/doit.gif';
 	import profile from '$lib/images/profile.jpg';
 	import Modal from '$lib/components/Modal.svelte';
+	export let data;
+	let Todos = data.items;
 	let showSidebar = false;
+	let current_date: any = new Date();
+	let showAlert = false;
+	let showSearchbar = false;
+	let dueTodos: any[] = [];
+	const oneWeek = 24 * 60 * 60 * 1000 * 7;
+	let searchPattern: any;
+	let fuse: string | Fuse<unknown>;
+	let searchresults: any[] = [];
+	let searchableTodos: never[] = [];
+	const searchOptions = {
+		includeScore: true,
+		threshold: 0.5,
+		keys: ['title', 'description']
+	};
+
 	function displaySidebar() {
 		showSidebar = !showSidebar;
 	}
+	$: hasDueTodos = dueTodos.length > 0;
 
 	//alert creation
 	//To creat alert function, a list needs to be created with todo's who's completion date is upcoming (say, within 1 week). First, need to create
@@ -22,32 +37,47 @@
 	//of the alert button. Click on the list of todo's from that button should send you to the todo page to mark the todo as complete or update
 	//the end date.
 	//need to create a function to also "complete" a todo and update the database to mark it as such.
-	let showAlert = false;
 
-	//start test
-	let showSearchbar = false;
+	function checkDueDate() {
+		for (let todo of Todos) {
+			if (
+				todo.due_date !== null &&
+				todo.completion !== true &&
+				new Date(todo.due_date).getTime() <= Date.now() + oneWeek
+			) {
+				dueTodos.push(todo);
+			}
+		}
+		for (let x of dueTodos) {
+			let y = x.due_date;
+			let val = checkDateStatus(y);
+			x.condition = val;
+		}
+	}
 
-	let searchPattern;
-	let fuse;
-	let searchresults = [];
-	let searchableTodos = [];
-	const searchOptions = {
-		includeScore: true,
-		threshold: 0.5, // value 0 is very strict, value 1 is not strict, .6 is the default,
-		keys: ['title', 'description']
-	};
-	function search(Todos) {
+	function checkDateStatus(dateArgument: any) {
+		const targetDate: any = new Date(dateArgument);
+		if (targetDate < current_date) {
+			return 'Past Due:';
+		} else if (Math.abs(targetDate - current_date) <= oneWeek) {
+			return 'Upcoming:';
+		} else {
+			return 'NA';
+		}
+	}
+
+	function search(Todos: any[] | readonly unknown[]) {
 		fuse = new Fuse(Todos, searchOptions);
 	}
 
 	$: searchPattern && searchTodos();
+
 	const searchTodos = () => {
-		console.log(searchresults);
 		search(searchableTodos);
 		if (fuse) {
 			if (searchPattern) {
 				const searchResult = fuse.search(searchPattern);
-				const filteredTodos = searchResult.map((obj) => obj.item);
+				const filteredTodos = searchResult.map((obj: { item: any }) => obj.item);
 				searchresults = filteredTodos;
 			} else {
 				searchresults = [];
@@ -55,10 +85,7 @@
 		}
 	};
 
-	//Completion function
-
-	function updateCompletion(todo) {
-		console.log(todo);
+	function updateCompletion(todo: { _id: any; completion: any }) {
 		fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${todo._id}`, {
 			method: 'PUT',
 			headers: {
@@ -69,7 +96,7 @@
 			})
 		})
 			.then((_res) => {
-				window.location = '/';
+				window.location.assign('/');
 			})
 			.catch((_err) => {
 				_err = !_err;
@@ -77,23 +104,25 @@
 	}
 
 	onMount(() => {
-		Todos = Todos;
 		searchableTodos = Todos;
+		checkDueDate();
 	});
 </script>
 
-<!-- <header>NavBar</header> -->
 <div class="relative">
 	{#if showSidebar}
 		<div transition:slide class="absolute left-0 top-0 h-screen bg-slate-800 w-screen rounded-xl">
-			<button class="p-8" on:click={displaySidebar}
+			<button
+				type="button"
+				class="p-8"
+				on:click={() => {
+					displaySidebar;
+				}}
 				><svg
 					viewBox="0 0 24 24"
 					height="35"
 					width="35"
 					focusable="false"
-					role="img"
-					fill="currentColor"
 					xmlns="http://www.w3.org/2000/svg"
 					class="text-slate-300"
 					><title>Navigation icon</title><path
@@ -118,18 +147,16 @@
 			</div>
 		</div>
 	{/if}
+
 	<div class="flex flex-row justify-between text-white pt-8">
-		<button on:click={displaySidebar} class="ml-8 mt-[-5px]"
-			><svg
-				viewBox="0 0 24 24"
-				height="35"
-				width="35"
-				focusable="false"
-				role="img"
-				fill="currentColor"
-				xmlns="http://www.w3.org/2000/svg"
-				class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
-				><title>Navigation icon</title><path
+		<button
+			type="button"
+			on:click={() => {
+				displaySidebar;
+			}}
+			class="ml-8 mt-[-5px]"
+			><svg class="fill-white" viewBox="0 0 24 24" height="35" width="35" focusable="false"
+				><path
 					d="M2.75 18h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.49h18.6-18.5z"
 				/></svg
 			></button
@@ -140,16 +167,8 @@
 					showSearchbar = !showSearchbar;
 				}}
 				class=""
-				><svg
-					viewBox="0 0 16 16"
-					height="25"
-					width="25"
-					focusable="false"
-					role="img"
-					fill="currentColor"
-					xmlns="http://www.w3.org/2000/svg"
-					class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
-					><title>Search icon</title><path
+				><svg class="fill-white" viewBox="0 0 16 16" height="25" width="25"
+					><path
 						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
 					/></svg
 				></button
@@ -163,27 +182,69 @@
 					name=""
 				/>
 			{/if}
+
 			<button
+				type="button"
 				on:click={() => {
 					showAlert = !showAlert;
 				}}
-				class=""
-				><svg
+			>
+				<svg
 					viewBox="0 0 16 16"
 					height="25"
 					width="25"
-					focusable="false"
-					role="img"
-					fill="currentColor"
-					xmlns="http://www.w3.org/2000/svg"
-					class="StyledIconBase-sc-ea9ulj-0 hRnJPC"
-					><title>Bell icon</title><path
+					class={hasDueTodos ? 'fill-red-800' : 'fill-white'}
+				>
+					<path
 						d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
-					/></svg
-				></button
-			>
+					/>
+				</svg>
+			</button>
 		</div>
 	</div>
+	{#if showAlert}
+		<dialog
+			class="rounded-xl text-indigo-800 w-80 min-h-20 max-h-56 overflow-hidden bg-pink-300 border-4 border-purple-950 overflow-y-auto mt-3"
+			open
+		>
+			{#each dueTodos as notificationItem}
+				{#if notificationItem.condition != 'NA'}
+					<div
+						class=" border rounded-xl text-white bg-indigo-800 mb-2 py-3 px-3 border-indigo-800 shadow-inner whitespace-nowrap"
+					>
+						<div class="flex flex-row gap-1 items-center">
+							<!-- {#if notificationItem.condition == 'Past Due:'}
+								<div />
+							{:else if notificationItem.condition == 'Upcoming'}
+								<div />
+							{:else}
+								<div />
+							{/if} -->
+							<div
+								class="text-xs {notificationItem.condition == 'Past Due:'
+									? 'text-red-600'
+									: 'text-orange-400'} font-semibold"
+							>
+								{notificationItem.condition}
+							</div>
+							<div class="text-palette-lightgray">
+								<a class="mt-1 text-white" href={`/${notificationItem._id}`}
+									>{notificationItem.title}</a
+								>
+							</div>
+						</div>
+					</div>
+				{/if}
+			{/each}
+			<!-- {#each dueTodos as result}
+				<div
+					class="border rounded-xl text-white bg-indigo-800 mb-2 py-3 px-3 border-indigo-800 shadow-inner whitespace-nowrap"
+				>
+					<a class="mt-1 text-white" href={`/${result._id}`}>{result.title}</a>
+				</div>
+			{/each} -->
+		</dialog>
+	{/if}
 
 	{#if showSearchbar}
 		<dialog
@@ -220,8 +281,13 @@
 				class="border rounded-xl bg-indigo-800 w-80 mb-2 py-3 px-3 border-indigo-800 shadow-inner"
 			>
 				<div class="flex flex-row gap-3">
-					<button type="button" on:click={updateCompletion(todo)}>
-						<Checkbox {todo} />
+					<button
+						type="button"
+						on:click={() => {
+							updateCompletion(todo);
+						}}
+					>
+						<Checkbox {todo} completion={todo.completion} />
 					</button>
 					<a class="mt-1 text-white {todo.completion ? 'line-through' : ''}" href={`/${todo._id}`}
 						>{todo.title}</a

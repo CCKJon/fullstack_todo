@@ -70,9 +70,7 @@
 	}
 
 	onMount(async () => {
-		console.log(data.id);
 		answer = await getTodo();
-		console.log(answer, 'this is my answer');
 		title = answer.title;
 		description = answer.description;
 		due_date = answer.due_date;

@@ -38,7 +38,6 @@
 				? new Date(due_date).toLocaleString('en-US', options).split('T')[0]
 				: 'null'
 		};
-		console.log(due_date);
 
 		fetch('https://todo-test-api-jelz.onrender.com/api/todo/', {
 			method: 'POST',
@@ -48,7 +47,6 @@
 			body: JSON.stringify(newTodo)
 		})
 			.then(() => {
-				console.log('this worked');
 				(window as Window).location = '/';
 			})
 			.catch(() => {
