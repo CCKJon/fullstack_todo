@@ -11,3 +11,6 @@ List of things to work on:
 -Create notifications for upcoming or past due todos
 -style up the profile zone
 -checking a to-do to mark it as complete and creates a strikethrough and updates the database.
+
+Bugs:
+-Alert bell icon SVG doesn't turn red when there are upcoming/past due todos.
