@@ -34,13 +34,6 @@
 
 	$: hasDueTodos = dueTodos.length > 0;
 
-	//alert creation
-	//To creat alert function, a list needs to be created with todo's who's completion date is upcoming (say, within 1 week). First, need to create
-	//parameters for todo's to have start and end dates. Then, create a list of todo completions within 1 week, and then display those on click
-	//of the alert button. Click on the list of todo's from that button should send you to the todo page to mark the todo as complete or update
-	//the end date.
-	//need to create a function to also "complete" a todo and update the database to mark it as such.
-
 	function checkDueDate() {
 		for (let todo of Todos) {
 			if (
@@ -108,18 +101,17 @@
 	function alphabetsort() {
 		let sortedTodos = [...Todos];
 		sortedTodos.sort((a, b) => {
-			const titleA = a.title.toUpperCase(); // Convert to uppercase for case-insensitive sorting
+			const titleA = a.title.toUpperCase();
 			const titleB = b.title.toUpperCase();
 
 			if (titleA < titleB) {
-				return -1; // a should come before b
+				return -1;
 			} else if (titleA > titleB) {
-				return 1; // a should come after b
+				return 1;
 			} else {
-				return 0; // a and b are equal
+				return 0;
 			}
 		});
-		// console.log(sortedTodos);
 		Todos = sortedTodos;
 	}
 	function defaultSort() {
@@ -149,7 +141,6 @@
 		searchableTodos = Todos;
 		checkDueDate();
 		defaultTodos = Todos;
-		console.log(Todos);
 	});
 </script>
 
@@ -193,7 +184,6 @@
 					Profile Categories
 				</div>
 				<div class="flex flex-col items-center space-y-6 overflow-y-auto max-h-[70vh]">
-					<!-- Mock Biography Description -->
 					<div class="w-3/4 text-white">
 						<h2 class="text-2xl font-bold mb-2">Biography Description</h2>
 						<p class="text-lg">
@@ -207,7 +197,6 @@
 						</p>
 					</div>
 
-					<!-- Mock Summary -->
 					<div class="w-3/4 text-white">
 						<h2 class="text-2xl font-bold mb-2">Summary</h2>
 						<p class="text-lg">
@@ -220,7 +209,6 @@
 						</p>
 					</div>
 
-					<!-- Mock Interests and Achievements -->
 					<div class="w-3/4 text-white">
 						<h2 class="text-2xl font-bold mb-2">Interests and Achievements</h2>
 						<ul class="list-disc pl-6 text-lg">
@@ -234,37 +222,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- <div transition:slide class="absolute left-0 top-0 h-screen bg-slate-800 w-screen rounded-xl">
-			<button type="button" class="p-8" on:click={displaySidebar}
-				><svg
-					viewBox="0 0 24 24"
-					height="35"
-					width="35"
-					focusable="false"
-					xmlns="http://www.w3.org/2000/svg"
-					class="text-slate-300"
-					><title>Navigation icon</title><path
-						d="M2.75 18h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.5h18.6-18.5zm0-6.5h18.5a.75.75 0 0 1 .1 1.5H2.75a.75.75 0 0 1-.1-1.49h18.6-18.5z"
-					/></svg
-				></button
-			>
-
-			<div class="absolute right-0 p-8">
-				<img
-					class="rounded-full aspect-square w-[90px] border-2 border-white shadow-white/50 shadow-lg justify"
-					src={profile}
-					alt=""
-				/>
-			</div>
-			<div class=" flex-row right-0">
-				<div class="text-slate-300">Jonathan Hwang</div>
-				<div class="text-slate-300">airgearfreak@gmail.com</div>
-			</div>
-			<div class="text-slate-300 mx-auto place-items-center grid flex-col min-h-screen">
-				<div class="border-4 rounded-xl py-2 px-2 border-black bg-slate-700">Logout</div>
-			</div>
-		</div> -->
 	{/if}
 
 	<div class="flex flex-row justify-between text-white pt-8">
@@ -385,7 +342,6 @@
 		<img src={doit} alt="" />
 	</div>
 
-	<!-- <div class="text-white text-sm">Sidescrolling list of featured classes</div> -->
 	<div class="flex flex-row justify-between w-full">
 		<div class="text-white text-xs mb-2 ml-12 mt-12">LIST OF TASKS</div>
 		<button class="text-white text-xs mb-2 mr-12 mt-12">SORT</button>
@@ -423,8 +379,6 @@
 					<a class="mt-1 text-white {todo.completion ? 'line-through' : ''}" href={`/${todo._id}`}
 						>{todo.title}</a
 					>
-
-					<!-- <p class="grid place-items-center mb-3 text-rose-default text-center">{todo.description}</p> -->
 				</div>
 			</div>
 		{/each}

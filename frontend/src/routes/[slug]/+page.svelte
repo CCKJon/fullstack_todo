@@ -20,12 +20,6 @@
 	 */
 	let due_date;
 
-	// async function handleSubmit(event) {
-	// event.preventDefault();
-	// if (!updatedTitle.trim()) {
-	//   return;
-	// }
-
 	async function getTodo() {
 		const response = await fetch(`https://todo-test-api-jelz.onrender.com/api/todo/${id}`);
 		const data = await response.json();
