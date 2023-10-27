@@ -168,6 +168,7 @@
 				</button>
 
 				<div class="flex items-center">
+					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img
 						class="w-12 h-12 rounded-full border-2 border-white shadow-lg mr-4"
 						src={profile}
