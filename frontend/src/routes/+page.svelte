@@ -9,6 +9,7 @@
 	import profile from '$lib/images/profile.jpg';
 	import Modal from '$lib/components/Modal.svelte';
 	import { Dropdown, DropdownItem, DropdownDivider, DropdownHeader } from 'flowbite-svelte';
+	import Welcome from '$lib/components/Welcome.svelte';
 	export let data;
 	let Todos = data.items;
 	let showSidebar = false;
