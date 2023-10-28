@@ -1,0 +1,60 @@
+// @ts-nocheck
+import { derived, writable } from 'svelte/store';
+import { auth } from '$lib/firebase/firebase.client';
+import {
+	createUserWithEmailAndPassword,
+	sendPasswordResetEmail,
+	signInWithEmailAndPassword,
+	signOut,
+	updateEmail,
+	updatePassword,
+	updateProfile,
+	sendEmailVerification
+} from 'firebase/auth';
+
+export const authStore = writable({
+	isLoading: true,
+	currentUser: null
+});
+
+//auth authhandler functions
+export const authHandlers = {
+	login: async (email, password) => {
+		const newUserCredential = await signInWithEmailAndPassword(auth, email, password);
+		await sendEmailVerification(newUserCredential.user);
+	},
+	signup: async (email, password, displayName) => {
+		await createUserWithEmailAndPassword(auth, email, password, displayName);
+	},
+
+	logout: async () => {
+		await signOut(auth);
+	},
+	resetPassword: async (email) => {
+		await sendPasswordResetEmail(auth, email);
+	},
+	updateEmail: async (email) => {
+		authStore.update((curr) => {
+			return {
+				...curr,
+				currentUser: {
+					...curr.currentUser,
+					email: email
+				}
+			};
+		});
+		await updateEmail(auth.currentUser, email);
+	},
+	updatePassword: async (password) => {
+		await updatePassword(auth.currentUser, password);
+	},
+	//displayName can be interchanged with photoURL
+	updateProfile: async (displayName) => {
+		await updateProfile(auth.currentUser, displayName);
+	}
+};
+
+//test for isLoggedIn value
+export const isLoggedIn = derived(authStore, ($authStore) => {
+	return $authStore.currentUser ? true : false;
+});
