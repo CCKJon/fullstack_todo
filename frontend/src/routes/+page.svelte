@@ -9,7 +9,6 @@
 	import profile from '$lib/images/profile.jpg';
 	import Modal from '$lib/components/Modal.svelte';
 	import { Dropdown, DropdownItem, DropdownDivider, DropdownHeader } from 'flowbite-svelte';
-	import Welcome from '$lib/components/Welcome.svelte';
 	export let data;
 	let Todos = data.items;
 	let showSidebar = false;
@@ -34,6 +33,26 @@
 	}
 
 	$: hasDueTodos = dueTodos.length > 0;
+
+	// test zone
+	import { todoStore, todoHandlers } from '$lib/stores/todoStore.js';
+
+	let todolistfromfirestore = [];
+
+	todoStore.subscribe((curr) => {
+		console.log('This is data from todo stores', curr);
+		todolistfromfirestore = curr?.todos;
+		console.log('todolistfromfirestore', todolistfromfirestore);
+		// displayName = curr?.currentUser?.displayName;
+		// appointmentsScheduled = curr?.currentUser?.appointments.length;
+	});
+	let todoData = { title: 'todo title' };
+
+	function createfirestoretodo() {
+		todoHandlers.createtodo(todoData);
+	}
+
+	//
 
 	function checkDueDate() {
 		for (let todo of Todos) {
@@ -144,6 +163,12 @@
 		defaultTodos = Todos;
 	});
 </script>
+
+<div>
+	<button type="button" on:click={createfirestoretodo} class="text-gray-300"
+		>Test to create firestoretodo</button
+	>
+</div>
 
 <div class="relative">
 	{#if showSidebar}

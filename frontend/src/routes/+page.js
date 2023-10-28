@@ -1,3 +1,6 @@
+export const ssr = false;
+export const prerender = true;
+
 async function getTodos() {
 	const response = await fetch('https://todo-test-api-jelz.onrender.com/api/todo/');
 	const data = await response.json();
