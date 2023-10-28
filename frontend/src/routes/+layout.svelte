@@ -17,13 +17,19 @@
 		</div>
 	{:else}
 		<div class="app min-h-screen bg-gray-900 rounded-xl">
-			<h1>Welcome to Your Todo App</h1>
-			<p>For the best experience, please view this app in mobile mode</p>
-			<button
-				class="px-2 py-1 rounded-md bg-white hover:bg-slate-300"
-				type="button"
-				on:click={enterSite}>Enter</button
-			>
+			<div class="py-40">
+				<h1 class="text-gray-300 flex flex-row justify-center text-xl">Welcome to Your Todo App</h1>
+				<p class="text-gray-400 py-5 flex flex-row justify-center">
+					For the best experience, please use mobile view
+				</p>
+				<div class="flex flex-row justify-center py-96">
+					<button
+						class="px-2 py-1 rounded-md bg-pink-400 hover:bg-pink-300"
+						type="button"
+						on:click={enterSite}>Enter</button
+					>
+				</div>
+			</div>
 		</div>
 	{/if}
 </div>
